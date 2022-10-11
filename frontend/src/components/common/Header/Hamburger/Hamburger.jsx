@@ -1,28 +1,33 @@
-import hamburgerImage from "../../../../images/header/hamburger.svg";
 import {useState} from "react";
+import {Link} from "react-router-dom";
+import {menu} from "./menuBase";
+
 import styles from './Hamburger.module.scss'
+
+import hamburgerImage from "../../../../images/header/hamburger.svg";
+import hamburgerCloseImage from "../../../../images/header/hamburger-close.svg";
 
 const Hamburger = () => {
     const [show, setShow] = useState(false)
 
+    const handleLogout = () => {
+        console.log('logout')
+    }
+
     return (
         <div className={styles.wrapper}>
             <button type='button' onClick={() => setShow(!show)}>
-                <img src={hamburgerImage} alt="Auth"/>
+                <img src={show ? hamburgerCloseImage : hamburgerImage} alt="Auth"/>
             </button>
             <nav className={styles.menu}>
                 <ul>
+                    {menu.map(item =>
+                        <li>
+                            <Link to={item.link}>{item.title}</Link>
+                        </li>
+                    )}
                     <li>
-                        <Link>Workouts</Link>
-                    </li>
-                    <li>
-                        <Link>Create new</Link>
-                    </li>
-                    <li>
-                        <Link>Profile</Link>
-                    </li>
-                    <li>
-                        <Link>Logout</Link>
+                        <a onClick={handleLogout}>Logout</a>
                     </li>
                 </ul>
             </nav>
